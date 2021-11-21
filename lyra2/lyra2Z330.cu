@@ -19,6 +19,7 @@ extern void lyra2z330_cpu_init(int thr_id, uint32_t threads, uint64_t* d_matrix,
 extern void lyra2z330_setData(const void *data);
 extern void lyra2z330_cpu_free(int thr_id);
 
+__host__
 void lyra2z330_hash(void *state, const void *input, const uint64_t timeCost, const uint64_t row, const uint64_t col, const uint32_t bug)
 {
 	uint32_t hashA[8];
@@ -30,6 +31,7 @@ void lyra2z330_hash(void *state, const void *input, const uint64_t timeCost, con
 
 static bool init[MAX_GPUS] = { 0 };
 
+__host__
 int scanhash_lyra2_base(int thr_id, uint32_t *pdata,
 	uint32_t *ptarget, uint32_t max_nonce, uint32_t *hashes_done,
 	const uint64_t timeCost, const uint64_t row, const uint64_t col, const uint32_t bug) {
@@ -148,11 +150,12 @@ int scanhash_lyra2_base(int thr_id, uint32_t *pdata,
 	return 0;
 }
 
+__host__
 int scanhash_lyra2z330(int thr_id, uint32_t *pdata,
 	uint32_t *ptarget, uint32_t max_nonce,
 	uint32_t *hashes_done)
 {
-	return  scanhash_lyra2_base(thr_id, pdata, ptarget, max_nonce, hashes_done, 2, 330, 256, FALSE);
+        return  scanhash_lyra2_base(thr_id, pdata, ptarget, max_nonce, hashes_done, 2, 330, 256, 0);
 }
 
 // cleanup
